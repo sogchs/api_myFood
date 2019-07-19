@@ -16,7 +16,7 @@ module.exports.register = (req, res, next) => {
     .catch(next)
 }
 
-module.exports.authenticate = (req, res, next) => {
+module.exports.login = (req, res, next) => {
   passport.authenticate('auth-local', (error, user, message) => {
     if (error) {
       next(error);
@@ -37,4 +37,8 @@ module.exports.authenticate = (req, res, next) => {
 module.exports.logout = (req, res, next) => {
   req.logout();
   res.status(204).json();
+}
+
+module.exports.editProfile = (req, res, next) => {
+
 }

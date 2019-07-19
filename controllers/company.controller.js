@@ -1,5 +1,5 @@
-const Column = require('../models/column.model');
-const Card = require('../models/card.model');
+const Column = require('../models/company.model');
+const Card = require('../models/menu.model');
 
 const createError = require('http-errors');
 

@@ -7,9 +7,9 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
-const columnRoutes = require('./routes/columns.routes');
-const cardsRoutes = require('./routes/cards.routes');
-const authRoutes = require('./routes/auth.routes');
+const companyRoutes = require('./routes/company.routes');
+const menuRoutes = require('./routes/menu.routes');
+const userRoutes = require('./routes/user.routes');
 
 require('./configs/db.config');
 const session = require('./configs/session.config');
@@ -28,9 +28,9 @@ app.use(session);
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/columns', columnRoutes);
-app.use('/cards', cardsRoutes);
-app.use('/', authRoutes);
+app.use('/company', companyRoutes);
+app.use('/menu', menuRoutes);
+app.use('/', userRoutes);
 
 app.use((req, res, next) => {
   res.locals.session = req.user;

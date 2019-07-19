@@ -1,18 +1,36 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const SALT_WORK_FACTOR = 10
+
+const SALT_WORK_FACTOR = 10;
+const EMAIL_PATTERN = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+const PASSWORD_PATTERN = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
 const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
-    required: true,
-    unique: true
+    required: 'Email is required',
+    unique: true,
+    lowercase: true,
+    trim: true,
+    match: [EMAIL_PATTERN, 'Invalid email pattern']
   },
   password: {
     type: String,
-    required: true,
-    minlength: 8
-  }
+    required: 'Password is required',
+    match: [PASSWORD_PATTERN, 'Passwords must contain at least six characters, including uppercase, lowercase letters and numbers.']
+  },
+  imageURL: {
+    type: String,
+    default: '/images/default-user.png';
+  },
+  allergies: [{
+    type: String,
+    required: true
+  }]
 }, {
   timestamps: true,
   toJSON: {
